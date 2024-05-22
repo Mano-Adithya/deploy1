@@ -3,15 +3,31 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: 14 # Example of specifying a runtime version
     commands:
-      - echo Installing NPM dependencies...
+      - echo Installing dependencies
       - npm install
+
+  pre_build:
+    commands:
+      - echo Pre-build phase
+      - echo Listing all folders in the repository
+      - find . -type d -maxdepth 1
+
   build:
     commands:
-      - echo Building the React app...
-      - npm run build
+      - echo Build phase
+      - echo Performing build operations
+      # Add your build commands here
+
+  post_build:
+    commands:
+      - echo Post-build phase
+      - echo Listing all folders again
+      - find . -type d -maxdepth 1
+      # Any additional post-build commands
 
 artifacts:
   files:
     - '**/*'
+  discard-paths: yes
