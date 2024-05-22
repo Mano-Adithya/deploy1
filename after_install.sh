@@ -1,6 +1,4 @@
 #!/bin/bash
 
-# Example script for tasks to be executed after installing the application
-
-echo "AfterInstall: Running post-installation tasks..."
-# Add your post-installation tasks here
+# Example: Set permissions for the application directory
+chmod -R 755 /var/www/html
