@@ -1,20 +1,14 @@
 #!/bin/bash
+set -e
 
+# Log start of script
 echo "Running ApplicationStart script..."
 
-# Define the service name
-SERVICE_NAME="my-service"
-
-# Start the service
-echo "Starting $SERVICE_NAME..."
-sudo systemctl start $SERVICE_NAME
-
-# Check if the service started successfully
-if systemctl is-active --quiet $SERVICE_NAME; then
-    echo "$SERVICE_NAME started successfully."
+# Start service if it exists
+if systemctl list-unit-files | grep -q "my-service.service"; then
+    echo "Starting my-service..."
+    sudo systemctl start my-service.service
 else
-    echo "Failed to start $SERVICE_NAME."
-    exit 1
+    echo "Service my-service not found or not installed."
+    # Handle the case where the service is not found or installed
 fi
-
-echo "ApplicationStart script completed."
