@@ -1,15 +1,19 @@
 #!/bin/bash
-# Exit immediately if a command exits with a non-zero status
 set -e
 
-# Create the directory if it does not exist
-mkdir -p /var/www/html
+# Log file path
+LOG_FILE="/var/log/after_install.log"
 
-# Set the permissions for the directory
-chmod -R 755 /var/www/html
+# Function to log messages
+log_message() {
+    echo "$(date +"%Y-%m-%d %T"): $1" >> "$LOG_FILE"
+}
 
-# (Optional) Change the ownership to the web server user and group, e.g., apache
-chown -R apache:apache /var/www/html
+# Log start of script
+log_message "Starting After Install script"
 
-# (Optional) Move your application files to the directory
-# cp -r /opt/codedeploy-agent/deployment-root/deployment-archive/* /var/www/html/
+# Additional setup tasks
+# Example: Configure environment variables, install dependencies, etc.
+
+# Log end of script
+log_message "After Install script completed successfully"
