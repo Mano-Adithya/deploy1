@@ -2,7 +2,7 @@
 set -e
 
 # Log file path
-LOG_FILE="/var/log/after_install.log"
+LOG_FILE="/home/ubuntu/after_install.log"
 
 # Function to log messages
 log_message() {
