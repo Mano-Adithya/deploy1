@@ -1,9 +1,13 @@
 #!/bin/bash
+set -e
 
-# Example: Check if the application service is running
-if systemctl is-active --quiet my-app; then
-  echo "Service is running"
+# Service name
+SERVICE_NAME="my-service"
+
+# Check if service is active
+if sudo systemctl is-active --quiet $SERVICE_NAME; then
+    echo "Service $SERVICE_NAME is active."
 else
-  echo "Service failed to start" >&2
-  exit 1
+    echo "ERROR: Service $SERVICE_NAME is not active."
+    exit 1
 fi
