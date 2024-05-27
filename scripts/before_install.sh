@@ -1,4 +1,6 @@
 #!/bin/bash
-
 echo "Running before install tasks..."
-# Add any necessary pre-installation tasks here
+# Example: Clean old application files
+sudo rm -rf /var/www/myapp/*
+
+# Add other pre-installation commands if necessary
