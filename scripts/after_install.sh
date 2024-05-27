@@ -1,5 +1,6 @@
 #!/bin/bash
-
 echo "Running after install tasks..."
-# Add any necessary post-installation tasks here
+# Example: Set permissions for the new files
 sudo chown -R www-data:www-data /var/www/myapp
+
+# Add other post-installation commands if necessary
