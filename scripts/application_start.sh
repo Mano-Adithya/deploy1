@@ -1,14 +1,6 @@
 #!/bin/bash
-set -e
+echo "Starting server..."
+# Example for starting an Nginx server
+sudo systemctl start nginx
 
-# Log start of script
-echo "Running ApplicationStart script..."
-
-# Start service if it exists
-if systemctl list-unit-files | grep -q "my-service.service"; then
-    echo "Starting my-service..."
-    sudo systemctl start my-service.service
-else
-    echo "Service my-service not found or not installed."
-    # Handle the case where the service is not found or installed
-fi
+# Add other server start commands if necessary
