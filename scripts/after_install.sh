@@ -1,6 +1,10 @@
 #!/bin/bash
-echo "Running after install tasks..."
-# Example: Set permissions for the new files
-sudo chown -R www-data:www-data /var/www/myapp
 
-# Add other post-installation commands if necessary
+# Navigate to the directory where the npm application is located
+cd /var/www/myapp
+
+# Install dependencies
+npm install
+
+# Start the npm application
+npm start
