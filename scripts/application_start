@@ -6,9 +6,6 @@ echo "Starting the application..."
 # Navigate to the application directory
 cd /var/www/myapp
 
-# Install dependencies
-/usr/bin/npm install
-
 # Start the application
 /usr/bin/npm start 
 
