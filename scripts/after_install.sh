@@ -5,6 +5,3 @@ cd /var/www/myapp
 
 # Install dependencies
 npm install
-
-# Start the npm application
-npm start
