@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14 # Example of specifying a runtime version
+      nodejs: 18 # Example of specifying a runtime version
     commands:
       - echo Installing dependencies
       - npm install
@@ -12,7 +12,6 @@ phases:
     commands:
       - echo Pre-build phase
       - echo Listing all folders in the repository
-      - find . -type d -maxdepth 1
 
   build:
     commands:
@@ -24,7 +23,6 @@ phases:
     commands:
       - echo Post-build phase
       - echo Listing all folders again
-      - find . -type d -maxdepth 1
       # Any additional post-build commands
 
 artifacts:
