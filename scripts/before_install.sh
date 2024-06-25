@@ -17,20 +17,28 @@ fi
 # Define the path to the CodeDeploy deployment root
 DEPLOYMENT_ROOT="/opt/codedeploy-agent/deployment-root/"
 
-# Find and delete all but the last 2 deployment directories
+# List deployment directories in deployment root
 if [ -d "$DEPLOYMENT_ROOT" ]; then
-  # Get a list of deployment directories sorted by modification time, oldest first
-  DEPLOYMENT_DIRS=$(ls -1t $DEPLOYMENT_ROOT | tail -n +3)
-  
-  # Loop through the list and delete each directory
-  for DIR in $DEPLOYMENT_DIRS; do
-    rm -rf $DEPLOYMENT_ROOT/$DIR
-    echo "Deleted old deployment directory: $DEPLOYMENT_ROOT/$DIR"
-  done
+  # Get a list of all deployment directories
+  DEPLOYMENT_DIRS=$(ls -1t $DEPLOYMENT_ROOT)
+
+  # Convert the list to an array
+  DEPLOYMENT_ARRAY=($DEPLOYMENT_DIRS)
+
+  # Calculate the number of directories to delete (keep the last two)
+  NUM_TO_DELETE=$((${#DEPLOYMENT_ARRAY[@]} - 2))
+
+  # If there are directories to delete, delete them
+  if [ $NUM_TO_DELETE -gt 0 ]; then
+    for ((i=0; i<$NUM_TO_DELETE; i++)); do
+      rm -rf $DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[$i]}
+      echo "Deleted old deployment directory: $DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[$i]}"
+    done
+  fi
 fi
 
 # Optionally, clear old logs if necessary
 LOG_PATH="/var/log/aws/codedeploy-agent/"
 find $LOG_PATH -type f -mtime +30 -exec rm -f {} +
 
-echo "Cleanup complete. Old deployments and logs older than 30 days have been removed."
+echo "Cleanup complete. All deployments except the last two have been removed."
