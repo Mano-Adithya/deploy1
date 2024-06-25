@@ -3,7 +3,6 @@ os: linux
 files:
   - source: /
     destination: /var/www/myapp
-    overwrite: true
 
 hooks:
   BeforeInstall:
