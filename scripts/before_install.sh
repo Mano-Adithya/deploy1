@@ -15,7 +15,7 @@ else
 fi
 
 # Define the path to the CodeDeploy deployment root
-DEPLOYMENT_ROOT="/opt/codedeploy-agent/deployment-root/"
+DEPLOYMENT_ROOT="/opt/codedeploy-agent/deployment-root/0502f759-41ef-49cc-8e90-f1cd7849adac"
 
 # Find and delete all but the last 2 deployment directories
 if [ -d "$DEPLOYMENT_ROOT" ]; then
@@ -25,14 +25,21 @@ if [ -d "$DEPLOYMENT_ROOT" ]; then
   # Convert the list to an array
   DEPLOYMENT_ARRAY=($DEPLOYMENT_DIRS)
 
+  # Print debug information
+  echo "All deployment directories: ${DEPLOYMENT_ARRAY[@]}"
+
   # Calculate the number of directories to delete (keep the last two)
   NUM_TO_DELETE=$((${#DEPLOYMENT_ARRAY[@]} - 2))
+
+  # Print debug information
+  echo "Number of directories to delete: $NUM_TO_DELETE"
 
   # If there are directories to delete, delete them
   if [ $NUM_TO_DELETE -gt 0 ]; then
     for ((i=0; i<$NUM_TO_DELETE; i++)); do
-      rm -rf $DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[$i]}
-      echo "Deleted old deployment directory: $DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[$i]}"
+      DIR_TO_DELETE="$DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[$i]}"
+      rm -rf "$DIR_TO_DELETE"
+      echo "Deleted old deployment directory: $DIR_TO_DELETE"
     done
   fi
 fi
