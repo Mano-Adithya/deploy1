@@ -19,22 +19,14 @@ DEPLOYMENT_ROOT="/opt/codedeploy-agent/deployment-root/"
 
 # Find and delete all but the last 2 deployment directories
 if [ -d "$DEPLOYMENT_ROOT" ]; then
-  # List deployment directories sorted by modification time, newest first
-  DEPLOYMENT_DIRS=$(ls -1t $DEPLOYMENT_ROOT)
+  # Get a list of deployment directories sorted by modification time, oldest first
+  DEPLOYMENT_DIRS=$(ls -1t $DEPLOYMENT_ROOT | tail -n +3)
   
-  # Convert the list to an array
-  DEPLOYMENT_ARRAY=($DEPLOYMENT_DIRS)
-  
-  # Calculate the number of directories to delete
-  NUM_TO_DELETE=$((${#DEPLOYMENT_ARRAY[@]} - 2))
-  
-  # If there are more than 2 directories, delete the oldest ones
-  if [ $NUM_TO_DELETE -gt 0 ]; then
-    for ((i=2; i<${#DEPLOYMENT_ARRAY[@]}; i++)); do
-      rm -rf $DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[i]}
-      echo "Deleted old deployment directory: $DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[i]}"
-    done
-  fi
+  # Loop through the list and delete each directory
+  for DIR in $DEPLOYMENT_DIRS; do
+    rm -rf $DEPLOYMENT_ROOT/$DIR
+    echo "Deleted old deployment directory: $DEPLOYMENT_ROOT/$DIR"
+  done
 fi
 
 # Optionally, clear old logs if necessary
