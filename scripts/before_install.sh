@@ -28,10 +28,10 @@ fi
 # Define the path to the CodeDeploy deployment root
 DEPLOYMENT_ROOT="/opt/codedeploy-agent/deployment-root/0502f759-41ef-49cc-8e90-f1cd7849adac"
 
-# Find and delete all but the last 2 deployment directories
+# Ensure the deployment root directory exists
 if [ -d "$DEPLOYMENT_ROOT" ]; then
-  # Get a list of all deployment directories sorted by modification time, newest first
-  DEPLOYMENT_DIRS=$(ls -1t "$DEPLOYMENT_ROOT")
+  # Get a list of all deployment directories sorted by name (which should reflect the deployment sequence)
+  DEPLOYMENT_DIRS=$(ls -1 "$DEPLOYMENT_ROOT" | sort)
 
   # Convert the list to an array
   DEPLOYMENT_ARRAY=($DEPLOYMENT_DIRS)
@@ -63,4 +63,3 @@ find "$LOG_PATH" -type f -mtime +30 -exec rm -f {} +
 log_message "Cleared old logs in $LOG_PATH"
 
 log_message "Cleanup complete. All deployments except the last two have been removed."
-
