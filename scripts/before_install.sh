@@ -17,9 +17,9 @@ fi
 # Define the path to the CodeDeploy deployment root
 DEPLOYMENT_ROOT="/opt/codedeploy-agent/deployment-root/"
 
-# List deployment directories in deployment root
+# Find and delete all but the last 2 deployment directories
 if [ -d "$DEPLOYMENT_ROOT" ]; then
-  # Get a list of all deployment directories
+  # Get a list of all deployment directories sorted by modification time, newest first
   DEPLOYMENT_DIRS=$(ls -1t $DEPLOYMENT_ROOT)
 
   # Convert the list to an array
