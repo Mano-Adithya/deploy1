@@ -14,10 +14,9 @@ log_message "Starting cleanup script..."
 # Define the destination directory
 DESTINATION_DIR="/var/www/myapp"
 
-# Check if the directory exists
+# Check if the directory exists and remove all contents
 if [ -d "$DESTINATION_DIR" ]; then
-  # Remove all contents of the directory
-  rm -rf "$DESTINATION_DIR/*"
+  rm -rf "${DESTINATION_DIR:?}"/*
   log_message "Cleaned up $DESTINATION_DIR"
 else
   # Create the directory if it doesn't exist
