@@ -26,14 +26,14 @@ if [ -d "$DEPLOYMENT_ROOT" ]; then
   log_message "All deployment directories: ${DEPLOYMENT_ARRAY[@]}"
 
   # Calculate the number of directories to delete (keep the last two)
-  NUM_TO_DELETE=$((${#DEPLOYMENT_ARRAY[@]} - 2))
+  NUM_TO_DELETE=$((${#DEPLOYMENT_ARRAY[@]} - 1))
 
   # Print debug information
   log_message "Number of directories to delete: $NUM_TO_DELETE"
 
   # If there are directories to delete, delete them
   if [ $NUM_TO_DELETE -gt 0 ]; then
-    for ((i=2; i<$NUM_TO_DELETE+2; i++)); do
+    for ((i=1; i<$NUM_TO_DELETE+1; i++)); do
       DIR_TO_DELETE="$DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[$i]}"
       rm -rf "$DIR_TO_DELETE"
       log_message "Deleted old deployment directory: $DIR_TO_DELETE"
