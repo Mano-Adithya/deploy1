@@ -11,26 +11,13 @@ log_message() {
 
 log_message "Starting cleanup script..."
 
-# Define the destination directory
-DESTINATION_DIR="/var/www/myapp"
-
-# Check if the directory exists and remove all contents
-if [ -d "$DESTINATION_DIR" ]; then
-  rm -rf "${DESTINATION_DIR:?}"/*
-  log_message "Cleaned up $DESTINATION_DIR"
-else
-  # Create the directory if it doesn't exist
-  mkdir -p "$DESTINATION_DIR"
-  log_message "Created $DESTINATION_DIR"
-fi
-
 # Define the path to the CodeDeploy deployment root
 DEPLOYMENT_ROOT="/opt/codedeploy-agent/deployment-root/0502f759-41ef-49cc-8e90-f1cd7849adac"
 
 # Ensure the deployment root directory exists
 if [ -d "$DEPLOYMENT_ROOT" ]; then
-  # Get a list of all deployment directories sorted by name (which should reflect the deployment sequence)
-  DEPLOYMENT_DIRS=$(ls -1 "$DEPLOYMENT_ROOT" | sort)
+  # Get a list of all deployment directories sorted by modification time, newest first
+  DEPLOYMENT_DIRS=$(ls -1t $DEPLOYMENT_ROOT)
 
   # Convert the list to an array
   DEPLOYMENT_ARRAY=($DEPLOYMENT_DIRS)
@@ -46,7 +33,7 @@ if [ -d "$DEPLOYMENT_ROOT" ]; then
 
   # If there are directories to delete, delete them
   if [ $NUM_TO_DELETE -gt 0 ]; then
-    for ((i=0; i<$NUM_TO_DELETE; i++)); do
+    for ((i=2; i<$NUM_TO_DELETE+2; i++)); do
       DIR_TO_DELETE="$DEPLOYMENT_ROOT/${DEPLOYMENT_ARRAY[$i]}"
       rm -rf "$DIR_TO_DELETE"
       log_message "Deleted old deployment directory: $DIR_TO_DELETE"
