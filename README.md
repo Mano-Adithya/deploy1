@@ -1,4 +1,4 @@
-# Getting Started with Cr
+# Getting Started with C
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
