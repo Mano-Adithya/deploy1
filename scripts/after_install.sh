@@ -28,7 +28,7 @@ else
 fi
 
 # Ensure correct permissions and ownership
-sudo chown -R www-data:www-data /var/www/myapp
+#sudo chown -R www-data:www-data /var/www/myapp
 sudo chmod -R 755 /var/www/myapp
 
 # Restart Apache to ensure it picks up any changes
