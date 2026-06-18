@@ -7,7 +7,9 @@ echo "Starting the application..."
 cd /var/www/myapp
 
 # Start the application
-/usr/bin/npm start 
+pm2 delete all || true
+pm2 start npm --name myapp -- start
+pm2 save
 
 # Print a message indicating that the application has started
 echo "Application started successfully."
