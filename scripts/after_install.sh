@@ -29,9 +29,10 @@ fi
 
 # Ensure correct permissions and ownership
 #sudo chown -R www-data:www-data /var/www/myapp
+sudo chown -R ec2-user:ec2-user /var/www/myapp
 sudo chmod -R 755 /var/www/myapp
 
 # Restart Apache to ensure it picks up any changes
-sudo systemctl restart apache2
+sudo systemctl restart httpd
 
 echo "AfterInstall script completed successfully"
